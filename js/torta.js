@@ -234,6 +234,13 @@
             try { metas = JSON.parse(localStorage.getItem('tortaMetas') || '{}'); } catch(e) {}
             var max = maxTrips || entries[0].trips || 1;
             if (max <= 0) max = 1;
+            var isDark = document.body.classList.contains('dark-theme');
+            var labelColor = isDark ? '#f1f5f9' : '#1e293b';
+            var totalColor = isDark ? '#f1f5f9' : '#000';
+            var itemBg = isDark ? '#1e293b' : '#f8fafc';
+            var barBg = isDark ? '#334155' : '#e2e8f0';
+            var metaBg = isDark ? '#334155' : '#e2e8f0';
+            var metaText = isDark ? '#94a3b8' : '#475569';
             var html = '';
             var medalhas = ['🥇','🥈','🥉'];
             for (var i = 0; i < entries.length; i++) {
@@ -256,44 +263,44 @@
                         var totalPct = Math.min((totalTripsRank / totalMetasRank) * 100, 100);
                         var totalOver = totalTripsRank > totalMetasRank ? totalTripsRank - totalMetasRank : 0;
                         html +=
-                            '<div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;padding:5px 8px;border-radius:8px;background:#e2e8f0;">' +
+                            '<div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;padding:5px 8px;border-radius:8px;background:' + metaBg + ';">' +
                                 '<span style="min-width:24px;text-align:center;font-size:12px;">📊</span>' +
-                                '<span style="font-size:12px;font-weight:700;color:#475569;">Total</span>' +
-                                '<span style="flex:1;height:14px;background:#cbd5e1;border-radius:7px;overflow:hidden;position:relative;">' +
+                                '<span style="font-size:12px;font-weight:700;color:' + metaText + ';">Total</span>' +
+                                '<span style="flex:1;height:14px;background:' + barBg + ';border-radius:7px;overflow:hidden;position:relative;">' +
                                     '<span style="display:block;height:100%;width:' + totalPct + '%;background:#2563eb;border-radius:7px;transition:width 0.6s ease;"></span>' +
                                     (totalOver ? '<span style="position:absolute;right:3px;top:-1px;font-size:9px;font-weight:800;color:#dc2626;">+' + totalOver + '</span>' : '') +
                                 '</span>' +
-                                '<span style="font-weight:800;font-size:12px;color:#000;min-width:55px;text-align:right;">' + totalTripsRank + '/' + totalMetasRank + 'V</span>' +
-                                '<span style="font-size:11px;color:#000;min-width:60px;text-align:right;">' + totalTonRank.toFixed(0) + 't</span>' +
+                                '<span style="font-weight:800;font-size:12px;color:' + totalColor + ';min-width:55px;text-align:right;">' + totalTripsRank + '/' + totalMetasRank + 'V</span>' +
+                                '<span style="font-size:11px;color:' + totalColor + ';min-width:60px;text-align:right;">' + totalTonRank.toFixed(0) + 't</span>' +
                             '</div>';
                     }
                     html +=
-                        '<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;padding:5px 8px;border-radius:8px;background:#f8fafc;">' +
+                        '<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;padding:5px 8px;border-radius:8px;background:' + itemBg + ';">' +
                             '<span style="min-width:24px;text-align:center;font-size:14px;">' + rank + '</span>' +
-                            '<span style="flex:0 0 auto;font-weight:700;font-size:12px;color:#1e293b;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:110px;" title="' + e.label + '">' + tortaNomeLimpo(e.label) + '</span>' +
-                            '<span style="flex:0 0 auto;display:inline-flex;align-items:center;gap:2px;font-size:11px;color:#475569;">' +
+                            '<span style="flex:0 0 auto;font-weight:700;font-size:12px;color:' + labelColor + ';min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:110px;" title="' + e.label + '">' + tortaNomeLimpo(e.label) + '</span>' +
+                            '<span style="flex:0 0 auto;display:inline-flex;align-items:center;gap:2px;font-size:11px;color:' + metaText + ';">' +
                                 '<input type="number" min="1" step="1" value="' + metaNum + '" ' +
-                                'style="width:36px;padding:2px 3px;border:1px solid #cbd5e1;border-radius:4px;font-size:11px;text-align:center;" ' +
+                                'style="width:36px;padding:2px 3px;border:1px solid ' + barBg + ';border-radius:4px;font-size:11px;text-align:center;" ' +
                                 'onchange="tortaSalvarMeta(\'' + e.label.replace(/'/g, "\\'") + '\',this.value);renderTorta();">' +
                             '</span>' +
-                            '<span style="flex:1;height:14px;background:#e2e8f0;border-radius:7px;overflow:hidden;position:relative;">' +
+                            '<span style="flex:1;height:14px;background:' + barBg + ';border-radius:7px;overflow:hidden;position:relative;">' +
                                 '<span style="display:block;height:100%;width:' + barPct + '%;background:' + cor + ';border-radius:7px;transition:width 0.6s ease;"></span>' +
                                 (overflow ? '<span style="position:absolute;right:3px;top:-1px;font-size:9px;font-weight:800;color:#dc2626;">+' + overflow + '</span>' : '') +
                             '</span>' +
-                            '<span style="flex:0 0 auto;font-weight:800;font-size:12px;color:#000;min-width:50px;text-align:right;">' + e.trips + '/' + metaNum + 'V</span>' +
-                            '<span style="flex:0 0 auto;font-size:11px;color:#000;min-width:50px;text-align:right;">' + e.value.toFixed(0) + 't</span>' +
+                            '<span style="flex:0 0 auto;font-weight:800;font-size:12px;color:' + totalColor + ';min-width:50px;text-align:right;">' + e.trips + '/' + metaNum + 'V</span>' +
+                            '<span style="flex:0 0 auto;font-size:11px;color:' + totalColor + ';min-width:50px;text-align:right;">' + e.value.toFixed(0) + 't</span>' +
                         '</div>';
                 } else {
                     var pctTrips = (e.trips / max) * 100;
                     html +=
-                        '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;padding:6px 8px;border-radius:8px;background:#f8fafc;">' +
+                        '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;padding:6px 8px;border-radius:8px;background:' + itemBg + ';">' +
                             '<span style="min-width:24px;text-align:center;font-size:14px;">' + rank + '</span>' +
-                            '<span style="flex:0 0 auto;font-weight:700;font-size:12px;color:#1e293b;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:170px;" title="' + e.label + '">' + tortaNomeLimpo(e.label) + '</span>' +
-                            '<span style="flex:1;height:20px;background:#e2e8f0;border-radius:10px;overflow:hidden;position:relative;">' +
+                            '<span style="flex:0 0 auto;font-weight:700;font-size:12px;color:' + labelColor + ';min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:170px;" title="' + e.label + '">' + tortaNomeLimpo(e.label) + '</span>' +
+                            '<span style="flex:1;height:20px;background:' + barBg + ';border-radius:10px;overflow:hidden;position:relative;">' +
                                 '<span style="display:block;height:100%;width:' + pctTrips + '%;background:' + cor + ';border-radius:10px;transition:width 0.6s ease;"></span>' +
                             '</span>' +
                             '<span style="flex:0 0 auto;font-weight:900;font-size:16px;color:' + cor + ';min-width:40px;text-align:right;">' + e.trips + 'V</span>' +
-                            '<span style="flex:0 0 auto;font-size:11px;color:#000;min-width:56px;text-align:right;">' + e.value.toFixed(0) + 't</span>' +
+                            '<span style="flex:0 0 auto;font-size:11px;color:' + totalColor + ';min-width:56px;text-align:right;">' + e.value.toFixed(0) + 't</span>' +
                         '</div>';
                 }
             }
@@ -394,6 +401,10 @@
             }
             var max = maxValue || entries[0].value;
             if (max <= 0) max = 1;
+            var isDark = document.body.classList.contains('dark-theme');
+            var labelColor = isDark ? '#f1f5f9' : '#1e293b';
+            var itemBg = isDark ? '#1e293b' : '#f8fafc';
+            var barBg = isDark ? '#334155' : '#e2e8f0';
             var html = '';
             var len = entries.length;
             var medalhas = ['🥇','🥈','🥉'];
@@ -405,10 +416,10 @@
                 var trips = tripMap && tripMap[e.label] ? tripMap[e.label] : '';
                 var tripBadge = trips ? ' <span style="font-weight:600;color:#2563eb;font-size:12px;">' + trips + 'V</span>' : '';
                 html +=
-                    '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;padding:4px 6px;border-radius:8px;background:#f8fafc;">' +
+                    '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;padding:4px 6px;border-radius:8px;background:' + itemBg + ';">' +
                         '<span style="min-width:24px;text-align:center;font-size:14px;">' + rank + '</span>' +
-                        '<span style="flex:0 0 auto;font-weight:600;font-size:13px;color:#1e293b;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:180px;" title="' + e.label + '">' + e.label + '</span>' +
-                        '<span style="flex:1;height:22px;background:#e2e8f0;border-radius:11px;overflow:hidden;position:relative;">' +
+                        '<span style="flex:0 0 auto;font-weight:600;font-size:13px;color:' + labelColor + ';min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:180px;" title="' + e.label + '">' + e.label + '</span>' +
+                        '<span style="flex:1;height:22px;background:' + barBg + ';border-radius:11px;overflow:hidden;position:relative;">' +
                             '<span style="display:block;height:100%;width:' + pct + '%;background:' + cor + ';border-radius:11px;transition:width 0.6s ease;"></span>' +
                         '</span>' +
                         '<span style="flex:0 0 auto;font-weight:800;font-size:14px;color:' + cor + ';min-width:60px;text-align:right;">' + e.value.toFixed(1) + 't</span>' +

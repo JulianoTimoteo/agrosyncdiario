@@ -151,29 +151,20 @@ var AgroSyncSync = (function() {
 
         // Check if cache exists
         var meta = AgroSyncCache.obterMeta();
-        if (meta) {
-            var lastDate = meta.ultimaAtualizacao ? new Date(meta.ultimaAtualizacao).toLocaleString('pt-BR') : '—';
-            setLastUpdate('📦 Última atualização: ' + lastDate);
+        
+        // MODO TERMINATOR: Se houver cache, assume imediatamente antes de qualquer busca online
+        if (meta && AgroSyncCache.existeCache()) {
+            setLastUpdate('📦 Última atualização: ' + (meta.ultimaAtualizacao ? new Date(meta.ultimaAtualizacao).toLocaleString('pt-BR') : '—'));
+            abrirComCache(meta);
+            
+            // Sincroniza em background se estiver online
+            if (isOnline) {
+                setTimeout(function() { buscarOnline(true); }, 2000);
+            }
+            return;
         }
 
         if (isOnline) {
-            updateProgress(15, 'Verificando conexão...', 'Online');
-            setSource('google_sheets');
-            // Try online first
-            updateProgress(25, 'Buscando dados online no Google Sheets...', 'Carregando');
-            setStep('dados');
-
-            // Check if cached data is fresh enough to show first
-            if (meta && AgroSyncCache.cacheEstaAtualizado()) {
-                // Show cache immediately, then update in background
-                abrirComCache(meta);
-                // Continue with online fetch in background
-                buscarOnline(true);
-            } else {
-                // Do a full online load
-                buscarOnline(false);
-            }
-        } else {
             // Offline — show cache immediately
             setConnectionBadge(false);
             updateProgress(15, 'Sem conexão — carregando base offline...', 'Modo offline');

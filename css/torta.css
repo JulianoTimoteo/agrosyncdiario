@@ -193,3 +193,17 @@
         body.dark-theme .perm-card-cta {
             color: var(--text-muted);
         }
+
+        /* ── Ranking text colors (dark mode) ── */
+        body.dark-theme #torta-ranking-cliente [style*="color:#1e293b"],
+        body.dark-theme #torta-ranking-veiculo [style*="color:#1e293b"],
+        body.dark-theme #biomassa-ranking-fundo [style*="color:#1e293b"],
+        body.dark-theme #biomassa-ranking-veiculo [style*="color:#1e293b"] {
+            color: #f1f5f9 !important;
+        }
+        body.dark-theme #torta-ranking-cliente [style*="color:#000"],
+        body.dark-theme #torta-ranking-veiculo [style*="color:#000"],
+        body.dark-theme #biomassa-ranking-fundo [style*="color:#000"],
+        body.dark-theme #biomassa-ranking-veiculo [style*="color:#000"] {
+            color: #f1f5f9 !important;
+        }

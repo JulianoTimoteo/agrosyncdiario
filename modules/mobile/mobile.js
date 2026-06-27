@@ -108,9 +108,18 @@ var MobileModule = (function() {
     // ── Toggle between mobile and desktop layout ──
     function applyLayout() {
         var w = window.innerWidth;
-        var shouldBeMobile = w <= (cfg.breakpoints ? cfg.breakpoints.tablet : 1024);
+        // Forçar mobile se detectar userAgent de celular/tablet mesmo em telas maiores (ou vice-versa)
+        var isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        var shouldBeMobile = w <= (cfg.breakpoints ? cfg.breakpoints.tablet : 1024) || isMobileUA;
 
-        if (shouldBeMobile === isMobile) return;
+        if (shouldBeMobile === isMobile) {
+            // Se já for mobile, garante que elementos mobile estão visíveis (correção de glitch)
+            if (isMobile && !document.getElementById('mobile-topbar').offsetParent) {
+                 isMobile = !shouldBeMobile; // force re-apply
+            } else {
+                return;
+            }
+        }
         isMobile = shouldBeMobile;
 
         var topbar = document.getElementById('mobile-topbar');

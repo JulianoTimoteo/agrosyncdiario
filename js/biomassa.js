@@ -276,19 +276,24 @@
             if (max <= 0) max = 1;
             var html = '';
             var medalhas = ['🥇','🥈','🥉'];
+            var isDark = document.body.classList.contains('dark-theme');
+            var labelColor = isDark ? '#f1f5f9' : '#1e293b';
+            var totalColor = isDark ? '#f1f5f9' : '#000';
+            var itemBg = isDark ? '#1e293b' : '#f8fafc';
+            var barBg = isDark ? '#334155' : '#e2e8f0';
             for (var i = 0; i < entries.length; i++) {
                 var e = entries[i];
                 var cor = BIOMASSA_CORES[i % BIOMASSA_CORES.length];
                 var rank = i < 3 ? medalhas[i] : (i + 1);
                 var pct = (e.fardos / max) * 100;
-                html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;padding:6px 8px;border-radius:8px;background:#f8fafc;">' +
+                html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;padding:6px 8px;border-radius:8px;background:' + itemBg + ';">' +
                     '<span style="min-width:24px;text-align:center;font-size:14px;">' + rank + '</span>' +
-                    '<span style="flex:0 0 auto;font-weight:700;font-size:12px;color:#1e293b;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:170px;" title="' + e.label + '">' + biomassaNomeLimpo(e.label) + '</span>' +
-                    '<span style="flex:1;height:20px;background:#e2e8f0;border-radius:10px;overflow:hidden;position:relative;">' +
+                    '<span style="flex:0 0 auto;font-weight:700;font-size:12px;color:' + labelColor + ';min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:170px;" title="' + e.label + '">' + biomassaNomeLimpo(e.label) + '</span>' +
+                    '<span style="flex:1;height:20px;background:' + barBg + ';border-radius:10px;overflow:hidden;position:relative;">' +
                         '<span style="display:block;height:100%;width:' + pct + '%;background:' + cor + ';border-radius:10px;transition:width 0.6s ease;"></span>' +
                     '</span>' +
                     '<span style="flex:0 0 auto;font-weight:900;font-size:16px;color:' + cor + ';min-width:50px;text-align:right;">' + e.fardos.toFixed(0) + ' fardos</span>' +
-                    '<span style="flex:0 0 auto;font-size:11px;color:#000;min-width:56px;text-align:right;">' + e.value.toFixed(0) + 't</span>' +
+                    '<span style="flex:0 0 auto;font-size:11px;color:' + totalColor + ';min-width:56px;text-align:right;">' + e.value.toFixed(0) + 't</span>' +
                 '</div>';
             }
             container.innerHTML = html;
@@ -736,6 +741,9 @@
             var canvas = document.getElementById(canvasId);
             if (!canvas) return;
             var ctx = canvas.getContext('2d');
+            var isDark = document.body.classList.contains('dark-theme');
+            var tc = isDark ? '#fff' : '#000';
+            var gridCol = isDark ? '#334155' : '#f1f5f9';
             biomassaCharts[canvasId] = new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -756,8 +764,8 @@
                         tooltip: { callbacks: { label: function(tt) { return tt.parsed + ' fardos'; } } }
                     },
                     scales: {
-                        x: { grid: { display: false }, ticks: { font: { size: 9 }, color: '#000', maxRotation: 45 } },
-                        y: { grid: { color: '#f1f5f9' }, ticks: { font: { size: 9 }, color: '#000', stepSize: 1 } }
+                        x: { grid: { display: false }, ticks: { font: { size: 9 }, color: tc, maxRotation: 45 } },
+                        y: { grid: { color: gridCol }, ticks: { font: { size: 9 }, color: tc, stepSize: 1 } }
                     }
                 }
             });
