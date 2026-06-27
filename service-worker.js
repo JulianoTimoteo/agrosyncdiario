@@ -3,8 +3,8 @@
    Cache first para estáticos, network first para dados
    ═══════════════════════════════════════════════════════════════ */
 
-var CACHE_NAME = 'agrosync-v1';
-var CACHE_STATIC = 'agrosync-static-v1';
+var CACHE_NAME = 'agrosync-v3';
+var CACHE_STATIC = 'agrosync-static-v3';
 
 var STATIC_FILES = [
     './index.html',
@@ -80,8 +80,25 @@ self.addEventListener('fetch', function(e) {
         return;
     }
 
-    // Static files: cache first
-    if (STATIC_FILES.indexOf('./' + url.pathname.replace(/^\//, '')) >= 0 || url.pathname.match(/\.(js|css|html|json|svg|png)$/)) {
+    // Navegação / HTML: NETWORK FIRST (nunca prende na versão antiga quando online)
+    if (e.request.mode === 'navigate' || url.pathname.match(/\.html$/) || url.pathname.endsWith('/')) {
+        e.respondWith(
+            fetch(e.request).then(function(response) {
+                return caches.open(CACHE_STATIC).then(function(cache) {
+                    cache.put(e.request, response.clone());
+                    return response;
+                });
+            }).catch(function() {
+                return caches.match(e.request).then(function(cached) {
+                    return cached || caches.match('./index.html');
+                });
+            })
+        );
+        return;
+    }
+
+    // Demais estáticos (js/css/svg/png): cache first
+    if (STATIC_FILES.indexOf('./' + url.pathname.replace(/^\//, '')) >= 0 || url.pathname.match(/\.(js|css|json|svg|png)$/)) {
         e.respondWith(
             caches.match(e.request).then(function(cached) {
                 var fetchPromise = fetch(e.request).then(function(response) {

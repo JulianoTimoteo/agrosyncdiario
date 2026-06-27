@@ -347,7 +347,7 @@
                     },
                     scales: {
                         x: { grid: { display: false }, ticks: { font: { size: 9 }, color: tc, maxRotation: 45 } },
-                        y: { grid: { color: '#f1f5f9' }, ticks: { font: { size: 9 }, color: tc, stepSize: 1 } }
+                        y: { beginAtZero: true, grid: { color: '#f1f5f9' }, ticks: { font: { size: 9 }, color: tc, precision: 0, maxTicksLimit: 8 } }
                     }
                 }
             });

@@ -546,16 +546,26 @@ body.is-mobile .perm-stage-grid {
     grid-template-columns: repeat(2, 1fr) !important;
 }
 
-/* ─── GRÁFICOS: nunca estourar a largura ─── */
+/* ─── GRÁFICOS: nunca estourar a largura (deixa o Chart.js controlar a altura) ─── */
 body.is-mobile #dashboardContent canvas {
     max-width: 100% !important;
-    max-height: 280px !important;
-    height: auto !important;
 }
-body.is-mobile #horaria-chart-wrap,
-body.is-mobile .disp-chart-wrap,
-body.is-mobile .bm-chart-card,
-body.is-mobile .coa-chart-wrap { height: auto !important; min-height: 240px; }
+body.is-mobile #horaria-chart-wrap { height: 300px !important; }
+body.is-mobile .disp-chart-wrap { height: 260px !important; }
+
+/* ─── CELULAR DEITADO (landscape): aproveita a largura p/ gráficos maiores ─── */
+@media (max-width: 1024px) and (orientation: landscape) {
+    body.is-mobile #dashboardContent [style*="grid-template-columns:1fr 1fr"],
+    body.is-mobile .main-grid,
+    body.is-mobile .coa-grid,
+    body.is-mobile .bm-charts-grid,
+    body.is-mobile .bm-ranking-container {
+        grid-template-columns: 1fr 1fr !important;
+    }
+    body.is-mobile #horaria-chart-wrap { height: 56vh !important; }
+    body.is-mobile .disp-chart-wrap { height: 52vh !important; }
+    body.is-mobile .container { padding-top: 58px !important; }
+}
 
 /* ─── CARDS: padding menor, sem overflow ─── */
 body.is-mobile .card,

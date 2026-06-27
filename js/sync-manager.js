@@ -145,48 +145,46 @@ var AgroSyncSync = (function() {
         updateProgress(5, 'Inicializando AgroSync...', 'Preparando ambiente');
         setStep('conexao');
 
-        // Check connection
+        // Estado de conexão
         isOnline = navigator.onLine;
         setConnectionBadge(isOnline);
 
-        // Check if cache exists
         var meta = AgroSyncCache.obterMeta();
-        
-        // MODO TERMINATOR: Se houver cache, assume imediatamente antes de qualquer busca online
-        if (meta && AgroSyncCache.existeCache()) {
-            setLastUpdate('📦 Última atualização: ' + (meta.ultimaAtualizacao ? new Date(meta.ultimaAtualizacao).toLocaleString('pt-BR') : '—'));
-            abrirComCache(meta);
-            
-            // Sincroniza em background se estiver online
-            if (isOnline) {
-                setTimeout(function() { buscarOnline(true); }, 2000);
-            }
-            return;
+        var temCache = AgroSyncCache.existeCache();
+        if (meta && meta.ultimaAtualizacao) {
+            setLastUpdate('📦 Última atualização: ' + new Date(meta.ultimaAtualizacao).toLocaleString('pt-BR'));
         }
 
         if (isOnline) {
-            // Offline — show cache immediately
+            // ONLINE → carga limpa direto do Google Sheets (sem mostrar cache velho pela metade)
+            updateProgress(20, 'Conectado — buscando dados online...', 'Google Sheets');
+            setSource('google_sheets');
+            setStep('dados');
+            showOfflineWarning(false);
+            buscarOnline(false);
+        } else if (temCache) {
+            // OFFLINE com cache → abre a última base salva imediatamente
             setConnectionBadge(false);
-            updateProgress(15, 'Sem conexão — carregando base offline...', 'Modo offline');
+            updateProgress(20, 'Sem conexão — carregando base salva...', 'Modo offline');
             setSource('offline_cache');
             showOfflineWarning(true);
-
-            if (AgroSyncCache.existeCache()) {
-                abrirComCache(meta);
-            } else {
-                updateProgress(100, 'Nenhuma base offline encontrada', 'Conecte-se à internet');
-                setLastUpdate('❌ Nenhum cache disponível. Conecte-se ou selecione a pasta local.');
-                setTimeout(hideLoading, 1000);
-            }
+            abrirComCache(meta);
+        } else {
+            // OFFLINE sem cache → orienta o usuário
+            setConnectionBadge(false);
+            updateProgress(100, 'Nenhuma base offline encontrada', 'Conecte-se à internet');
+            setSource('offline_cache');
+            showOfflineWarning(true);
+            setLastUpdate('❌ Sem cache disponível. Conecte-se à internet ou selecione a pasta local.');
+            // Não esconde o loading: os botões (Atualizar / Selecionar pasta) ficam disponíveis
         }
 
-        // Listen for connection changes
+        // Reage a mudanças de conexão
         window.addEventListener('online', function() {
             isOnline = true;
             setConnectionBadge(true);
-            document.getElementById('loading-badge-connection');
             showOfflineWarning(false);
-            buscarOnline(true); // background sync
+            buscarOnline(true); // sincroniza em background
         });
 
         window.addEventListener('offline', function() {

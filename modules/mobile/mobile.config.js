@@ -20,7 +20,7 @@ var MobileConfig = {
     },
     tabs: [
         { id: 'solinftec', label: '🚜 Solinftec' },
-        { id: 'balance', label: '⚖️ Balanço' },
+        { id: 'balance', label: '🏭 Moagem' },
         { id: 'densidade', label: '📊 Densidade' },
         { id: 'controle', label: '📈 Controle' },
         { id: 'consumo', label: '⛽ Consumo' },
