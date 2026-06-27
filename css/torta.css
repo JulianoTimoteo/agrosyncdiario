@@ -1,0 +1,195 @@
+        /* Torta race ranking */
+        #torta-ranking-cliente > div:hover,
+        #torta-ranking-veiculo > div:hover {
+            background: #eef2ff !important;
+            transform: translateX(4px);
+            transition: all 0.2s ease;
+        }
+        #torta-kpis .card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        #torta-kpis .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        /* Permanência cards */
+        .perm-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 18px;
+        }
+
+        @media(max-width:600px) {
+            .perm-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .perm-card {
+            border-radius: 16px;
+            padding: 18px 20px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all .22s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .perm-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .13);
+        }
+
+        .perm-card.proprio {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border-color: #86efac;
+        }
+
+        .perm-card.terceiro {
+            background: linear-gradient(135deg, #fffbeb, #fef3c7);
+            border-color: #fcd34d;
+        }
+
+        .perm-card-icon {
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+
+        .perm-card-label {
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .6px;
+            color: #64748b;
+        }
+
+        .perm-card-avg {
+            font-size: 28px;
+            font-weight: 900;
+            line-height: 1;
+            margin: 4px 0;
+        }
+
+        .perm-card.proprio .perm-card-avg {
+            color: #15803d;
+        }
+
+        .perm-card.terceiro .perm-card-avg {
+            color: #b45309;
+        }
+
+        .perm-card-sub {
+            font-size: 11px;
+            font-weight: 700;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+        .perm-card-cta {
+            font-size: 10px;
+            font-weight: 700;
+            color: #94a3b8;
+            margin-top: 8px;
+        }
+        /* ── Torta KPI Cards ── */
+        .torta-kpi-card {
+            text-align: center;
+            padding: 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s, border-color 0.3s;
+            cursor: help;
+        }
+        .torta-kpi-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+        .torta-kpi-card .kpi-val {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+        .torta-kpi-card .kpi-lbl {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .torta-kpi-card .kpi-sub {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        .torta-kpi-card .kpi-accent {
+            width: 40px;
+            height: 4px;
+            border-radius: 4px;
+            margin: 0 auto 8px auto;
+        }
+
+        /* ── Tooltip custom ── */
+        .torta-kpi-card {
+            position: relative;
+        }
+        .torta-kpi-card .kpi-tooltip {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .torta-kpi-card:hover .kpi-tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+        body.dark-theme .torta-kpi-card .kpi-tooltip {
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        /* ── Dark theme ── */
+        body.dark-theme #torta-ranking-cliente > div:hover,
+        body.dark-theme #torta-ranking-veiculo > div:hover {
+            background: #263548 !important;
+        }
+        body.dark-theme .perm-card.proprio {
+            background: linear-gradient(135deg, #0f2930, #0a3a1a);
+            border-color: #166534;
+        }
+        body.dark-theme .perm-card.terceiro {
+            background: linear-gradient(135deg, #2a2010, #3a2a0a);
+            border-color: #a16207;
+        }
+        body.dark-theme .perm-card-label {
+            color: var(--text-secondary);
+        }
+        body.dark-theme .perm-card.proprio .perm-card-avg {
+            color: #4ade80;
+        }
+        body.dark-theme .perm-card.terceiro .perm-card-avg {
+            color: #fbbf24;
+        }
+        body.dark-theme .perm-card-sub {
+            color: var(--text-secondary);
+        }
+        body.dark-theme .perm-card-cta {
+            color: var(--text-muted);
+        }

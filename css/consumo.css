@@ -1,0 +1,571 @@
+        /* ═══════════ ABA CONSUMO (novo módulo) ═══════════ */
+        .consumo-tabs {
+            display: flex;
+            gap: 10px;
+            background: #f1f5f9;
+            padding: 6px;
+            border-radius: 14px;
+            margin-bottom: 20px;
+            width: fit-content;
+        }
+
+        .consumo-tabs-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .consumo-tabs-row .consumo-tabs {
+            margin-bottom: 0;
+        }
+
+        .consumo-chips {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .consumo-chips:not(:empty)::before {
+            content: '';
+            width: 1px;
+            height: 26px;
+            background: #cbd5e1;
+            margin-right: 4px;
+        }
+
+        .consumo-chip {
+            padding: 8px 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            background: #ffffff;
+            color: #475569;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        .consumo-chip:hover {
+            border-color: #40800c;
+            color: #40800c;
+        }
+
+        .consumo-chip.active {
+            background: #40800c;
+            border-color: #40800c;
+            color: #ffffff;
+        }
+
+        .consumo-chip .chip-qtd {
+            opacity: .7;
+            font-weight: 700;
+            font-size: 11px;
+            margin-left: 4px;
+        }
+
+        .consumo-periodo-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #15803d;
+            font-size: 12px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .consumo-metas-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+        }
+
+        /* labels de frente abaixo do gráfico */
+        .consumo-frente-labels {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin: 10px 0 12px;
+        }
+
+        .consumo-frente-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            color: #334155;
+            cursor: default;
+            transition: all 0.15s;
+            user-select: none;
+        }
+
+        .consumo-frente-label:hover,
+        .consumo-frente-label.hover-ativo {
+            border-color: #40800c;
+            background: #f0fdf4;
+            color: #40800c;
+        }
+
+        .frente-lbl-info {
+            font-size: 11px;
+            font-weight: 700;
+            color: #94a3b8;
+        }
+
+        .consumo-frente-label.hover-ativo .frente-lbl-info {
+            color: #64748b;
+        }
+
+        .consumo-tab {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            background: transparent;
+            color: #475569;
+            transition: all 0.3s;
+        }
+
+        .consumo-tab.active {
+            background: white;
+            color: #40800c;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .consumo-content {
+            display: none;
+        }
+
+        .consumo-content.active {
+            display: block;
+        }
+
+        .consumo-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 14px;
+            margin-bottom: 25px;
+        }
+
+        .consumo-kpi {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .consumo-kpi-val {
+            font-size: 22px;
+            font-weight: 800;
+            color: #1e293b;
+            line-height: 1.2;
+        }
+
+        .consumo-kpi-lbl {
+            font-size: 10px;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            margin-top: 4px;
+            letter-spacing: .4px;
+        }
+
+        .consumo-grupo-bloco {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            margin-bottom: 20px;
+        }
+
+        .consumo-grupo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .consumo-grupo-titulo {
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #334155;
+            border-left: 4px solid #40800c;
+            padding-left: 12px;
+        }
+
+        .consumo-meta-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 6px 12px;
+        }
+
+        .consumo-meta-box label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+        }
+
+        .consumo-meta-box input {
+            width: 90px;
+            padding: 6px 8px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #1e293b;
+            text-align: right;
+        }
+
+        .consumo-meta-box input:focus {
+            outline: 2px solid #40800c33;
+            border-color: #40800c;
+        }
+
+        .consumo-chart-wrap {
+            position: relative;
+            height: 300px;
+            margin: 10px 0 18px;
+        }
+
+        .consumo-mini-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+        }
+
+        .consumo-mini {
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .consumo-mini-val {
+            font-size: 16px;
+            font-weight: 800;
+            color: #1e293b;
+        }
+
+        .consumo-mini-lbl {
+            font-size: 9px;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        .consumo-legenda {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: #475569;
+            margin: 4px 0 8px;
+            flex-wrap: wrap;
+        }
+
+        .consumo-legenda span::before {
+            content: '';
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            margin-right: 6px;
+            vertical-align: -2px;
+        }
+
+        .consumo-legenda .leg-verde::before {
+            background: #16a34a;
+        }
+
+        .consumo-legenda .leg-vermelho::before {
+            background: #dc2626;
+        }
+
+        .consumo-legenda .leg-meta::before {
+            background: transparent;
+            border-top: 3px dashed #1e293b;
+            height: 0;
+            width: 16px;
+            border-radius: 0;
+            vertical-align: 2px;
+        }
+
+        .consumo-toolbar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 14px 18px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .consumo-toolbar label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+        }
+
+        .consumo-toolbar select {
+            padding: 8px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #1e293b;
+            background: #f8fafc;
+            cursor: pointer;
+        }
+
+        .consumo-btn-csv {
+            background: #40800c;
+            color: #fff;
+            border: none;
+            padding: 9px 18px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+        .consumo-btn-csv:hover {
+            background: #2d5c09;
+        }
+
+        .consumo-badge-dentro {
+            background: #f0fdf4;
+            color: #16a34a;
+            border: 1px solid #bbf7d0;
+        }
+
+        .consumo-badge-fora {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+
+        .consumo-msg-warn {
+            background: #fefce8;
+            border: 1px solid #fef08a;
+            color: #ca8a04;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .consumo-msg-erro {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .consumo-msg-info {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            color: #0369a1;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .consumo-dif-neg {
+            color: #16a34a;
+            font-weight: 700;
+        }
+
+        .consumo-dif-pos {
+            color: #dc2626;
+            font-weight: 700;
+        }
+
+        @media (max-width: 900px) {
+            .consumo-chart-wrap {
+                height: 260px;
+            }
+
+            .consumo-cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* ── Dark theme ── */
+        body.dark-theme .consumo-tabs {
+            background: #1e293b;
+        }
+        body.dark-theme .consumo-tab {
+            color: var(--text-secondary);
+        }
+        body.dark-theme .consumo-tab.active {
+            background: var(--bg-card);
+            color: #4ade80;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+        body.dark-theme .consumo-kpi {
+            background: var(--bg-card);
+            border-color: var(--border-color);
+            box-shadow: none;
+        }
+        body.dark-theme .consumo-kpi-val {
+            color: var(--text-primary);
+        }
+        body.dark-theme .consumo-kpi-lbl {
+            color: var(--text-secondary);
+        }
+        body.dark-theme .consumo-grupo-bloco {
+            background: var(--bg-card);
+            border-color: var(--border-color);
+            box-shadow: none;
+        }
+        body.dark-theme .consumo-grupo-titulo {
+            color: var(--text-primary);
+        }
+        body.dark-theme .consumo-meta-box {
+            background: #263548;
+            border-color: var(--border-color);
+        }
+        body.dark-theme .consumo-meta-box label {
+            color: var(--text-secondary);
+        }
+        body.dark-theme .consumo-meta-box input {
+            background: #1e293b;
+            color: var(--text-primary);
+            border-color: var(--border-color);
+        }
+        body.dark-theme .consumo-mini {
+            background: #263548;
+        }
+        body.dark-theme .consumo-mini-val {
+            color: var(--text-primary);
+        }
+        body.dark-theme .consumo-mini-lbl {
+            color: var(--text-secondary);
+        }
+        body.dark-theme .consumo-toolbar {
+            background: var(--bg-card);
+            border-color: var(--border-color);
+            box-shadow: none;
+        }
+        body.dark-theme .consumo-toolbar label {
+            color: var(--text-secondary);
+        }
+        body.dark-theme .consumo-toolbar select {
+            background: #1e293b;
+            color: var(--text-primary);
+            border-color: var(--border-color);
+        }
+        body.dark-theme .consumo-legenda {
+            color: var(--text-secondary);
+        }
+        body.dark-theme .consumo-chip {
+            background: #334155;
+            color: #fff;
+            border-color: #475569;
+        }
+        body.dark-theme .consumo-chip.active {
+            background: #4ade80;
+            color: #0f172a;
+        }
+        body.dark-theme .consumo-frente-label {
+            border-color: #475569;
+            color: var(--text-secondary);
+        }
+        body.dark-theme .consumo-frente-label:hover,
+        body.dark-theme .consumo-frente-label.hover-ativo {
+            border-color: #4ade80;
+            background: #0a2a14;
+            color: #4ade80;
+        }
+        body.dark-theme .frente-lbl-info {
+            color: var(--text-muted);
+        }
+        body.dark-theme .consumo-frente-label.hover-ativo .frente-lbl-info {
+            color: var(--text-secondary);
+        }
+        body.dark-theme .consumo-badge-dentro {
+            background: #0a2a14;
+            color: #4ade80;
+            border-color: #166534;
+        }
+        body.dark-theme .consumo-badge-fora {
+            background: #2a1010;
+            color: #f87171;
+            border-color: #5a2020;
+        }
+        body.dark-theme .consumo-periodo-badge {
+            background: #0a2a14;
+            color: #4ade80;
+            border-color: #166534;
+        }
+        body.dark-theme .consumo-tabela {
+            color: var(--text-primary);
+        }
+        body.dark-theme .consumo-tabela th {
+            background: #263548;
+            color: var(--text-secondary);
+        }
+        body.dark-theme .consumo-tabela td {
+            border-bottom-color: var(--border-color);
+        }
+        body.dark-theme .consumo-tabela tr:hover td {
+            background: #263548;
+        }
+        body.dark-theme .consumo-chips:not(:empty)::before {
+            background: var(--border-color);
+        }
+        body.dark-theme .consumo-msg-warn {
+            background: #2a2010;
+            border-color: #5a4010;
+            color: #fbbf24;
+        }
+        body.dark-theme .consumo-msg-erro {
+            background: #2a1010;
+            border-color: #5a2020;
+            color: #f87171;
+        }
+        body.dark-theme .consumo-msg-info {
+            background: #0a202a;
+            border-color: #1a4a6a;
+            color: #60a5fa;
+        }

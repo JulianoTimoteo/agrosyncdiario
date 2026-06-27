@@ -1,0 +1,149 @@
+        /* COA Analysis Section */
+        .coa-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        @media (max-width: 768px) {
+            .coa-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .coa-chart-wrap {
+            position: relative;
+            height: 220px;
+        }
+
+        .coa-center-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .coa-pct-value {
+            font-size: 30px;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .coa-pct-label {
+            font-size: 10px;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        .coa-legend {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .coa-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .coa-legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .coa-stats-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .coa-stat {
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .coa-stat-val {
+            font-size: 20px;
+            font-weight: 900;
+            display: block;
+        }
+
+        .coa-stat-lbl {
+            font-size: 9px;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            margin-top: 2px;
+            display: block;
+        }
+
+        .coa-meta-badge {
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-top: 16px;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .coa-meta-bom {
+            background: #dcfce7;
+            color: #15803d;
+            border: 1px solid #bbf7d0;
+        }
+
+        .coa-meta-ruim {
+            background: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+
+        .coa-separator {
+            border: 0;
+            border-top: 1px solid #e2e8f0;
+            margin: 16px 0;
+        }
+
+        /* ── Dark theme ── */
+        body.dark-theme .coa-pct-value {
+            color: var(--text-primary);
+        }
+        body.dark-theme .coa-pct-label {
+            color: var(--text-secondary);
+        }
+        body.dark-theme .coa-legend-item {
+            color: var(--text-secondary);
+        }
+        body.dark-theme .coa-stat-lbl {
+            color: var(--text-secondary);
+        }
+        body.dark-theme .coa-stat-val {
+            color: var(--text-primary);
+        }
+        body.dark-theme .coa-separator {
+            border-top-color: var(--border-color);
+        }
+        body.dark-theme .coa-meta-bom {
+            background: #0a2a14;
+            color: #4ade80;
+            border-color: #166534;
+        }
+        body.dark-theme .coa-meta-ruim {
+            background: #2a1010;
+            color: #f87171;
+            border-color: #5a2020;
+        }

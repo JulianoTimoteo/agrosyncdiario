@@ -1,0 +1,93 @@
+        .solinftec-tabs {
+            display: flex;
+            gap: 10px;
+            background: var(--bg-tab);
+            padding: 6px;
+            border-radius: 14px;
+            margin-bottom: 20px;
+            width: fit-content;
+            transition: background 0.3s;
+        }
+
+        .solinftec-tab {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            background: transparent;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+        }
+
+        .solinftec-tab.active {
+            background: white;
+            color: #22c55e;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .solinftec-content {
+            display: none !important;
+        }
+
+        .solinftec-content.active {
+            display: grid !important;
+        }
+        /* ═══════════ ABA SOLINFTEC > PERMANÊNCIA ═══════════ */
+        #solinftec-permanencia.active { display: block !important; }
+        .perm-report-topbar { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:18px; }
+        .perm-report-title { font-size:16px; font-weight:900; color:#1e293b; text-transform:uppercase; letter-spacing:.4px; }
+        .perm-day-tabs { display:flex; gap:8px; flex-wrap:wrap; background:#f8fafc; border:1px solid #e2e8f0; padding:8px; border-radius:16px; margin-bottom:18px; }
+        .perm-day-tab { border:0; background:#e2e8f0; color:#475569; border-radius:999px; padding:8px 14px; font-size:12px; font-weight:800; cursor:pointer; }
+        .perm-day-tab.active { background:#40800c; color:#fff; }
+        .perm-kpi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:14px; margin-bottom:18px; }
+        .perm-kpi-box { background:#fff; border:1px solid #e2e8f0; border-radius:18px; padding:16px; box-shadow:0 4px 18px rgba(0,0,0,.05); }
+        .perm-kpi-box small { display:block; font-size:10px; color:#64748b; font-weight:900; text-transform:uppercase; letter-spacing:.4px; margin-bottom:5px; }
+        .perm-kpi-box strong { display:block; font-size:24px; color:#1e293b; font-weight:900; line-height:1.1; }
+        .perm-kpi-box span { display:block; font-size:11px; color:#64748b; font-weight:700; margin-top:5px; }
+        .perm-stage-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-bottom:20px; }
+        .perm-stage-card { background:#ffffff; border:1px solid #e2e8f0; border-left:5px solid #40800c; border-radius:16px; padding:16px; box-shadow:0 4px 18px rgba(0,0,0,.05); }
+        .perm-stage-card.warning { border-left-color:#f59e0b; }
+        .perm-stage-card.danger { border-left-color:#ef4444; }
+        .perm-stage-label { font-size:11px; font-weight:900; text-transform:uppercase; color:#64748b; letter-spacing:.4px; }
+        .perm-stage-value { font-size:28px; font-weight:900; color:#1e293b; margin-top:4px; }
+        .perm-stage-sub { font-size:11px; font-weight:700; color:#64748b; margin-top:5px; }
+        .perm-analysis-grid { display:grid; grid-template-columns:1.1fr .9fr; gap:18px; margin-bottom:20px; }
+        @media(max-width:900px){ .perm-analysis-grid{grid-template-columns:1fr;} }
+        .perm-alert { border-radius:16px; padding:14px 16px; font-size:12px; font-weight:800; line-height:1.5; margin-bottom:12px; }
+        .perm-alert.info { background:#eff6ff; border:1px solid #bfdbfe; color:#1d4ed8; }
+        .perm-alert.warn { background:#fffbeb; border:1px solid #fde68a; color:#92400e; }
+        .perm-alert.danger { background:#fef2f2; border:1px solid #fecaca; color:#b91c1c; }
+        .perm-table-wrap { overflow-x:auto; border:1px solid #e2e8f0; border-radius:16px; }
+        .perm-table { width:100%; border-collapse:collapse; font-size:12px; background:#fff; }
+        .perm-table th { background:#f8fafc; color:#475569; font-size:10px; text-transform:uppercase; letter-spacing:.4px; font-weight:900; padding:10px; white-space:nowrap; }
+        .perm-table td { padding:10px; border-bottom:1px solid #f1f5f9; white-space:nowrap; }
+        .perm-table tr:hover td { background:#f8fafc; }
+        .perm-status { padding:4px 9px; border-radius:999px; font-size:10px; font-weight:900; display:inline-block; }
+        .perm-status.ok { background:#dcfce7; color:#15803d; }
+        .perm-status.medio { background:#fef3c7; color:#92400e; }
+        .perm-status.alto { background:#fee2e2; color:#b91c1c; }
+
+        /* ── Dark theme ── */
+        body.dark-theme .solinftec-tab.active { background: var(--bg-card); color: #4ade80; }
+        body.dark-theme .perm-report-title { color: var(--text-primary); }
+        body.dark-theme .perm-day-tabs { background: #1e293b; border-color: var(--border-color); }
+        body.dark-theme .perm-day-tab { background: #334155; color: var(--text-secondary); }
+        body.dark-theme .perm-day-tab.active { background: #4ade80; color: #0f172a; }
+        body.dark-theme .perm-kpi-box { background: var(--bg-card); border-color: var(--border-color); box-shadow: none; }
+        body.dark-theme .perm-kpi-box small { color: var(--text-secondary); }
+        body.dark-theme .perm-kpi-box strong { color: var(--text-primary); }
+        body.dark-theme .perm-kpi-box span { color: var(--text-secondary); }
+        body.dark-theme .perm-stage-card { background: var(--bg-card); border-color: var(--border-color); box-shadow: none; }
+        body.dark-theme .perm-stage-value { color: var(--text-primary); }
+        body.dark-theme .perm-stage-label { color: var(--text-secondary); }
+        body.dark-theme .perm-stage-sub { color: var(--text-secondary); }
+        body.dark-theme .perm-table { background: var(--bg-card); }
+        body.dark-theme .perm-table th { background: #263548; color: var(--text-secondary); }
+        body.dark-theme .perm-table td { border-bottom-color: var(--border-color); color: var(--text-primary); }
+        body.dark-theme .perm-table tr:hover td { background: #263548; }
+        body.dark-theme .perm-table-wrap { border-color: var(--border-color); }
+        body.dark-theme .perm-status.ok { background: #0a2a14; color: #4ade80; }
+        body.dark-theme .perm-status.medio { background: #2a2010; color: #fbbf24; }
+        body.dark-theme .perm-status.alto { background: #2a1010; color: #f87171; }

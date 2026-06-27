@@ -1,0 +1,74 @@
+        .densidade-ruim {
+            background: #fee2e2 !important;
+            border-color: #ef4444 !important;
+        }
+
+        .densidade-ruim .val {
+            color: #dc2626 !important;
+        }
+
+        .densidade-mediano {
+            background: #dbeafe !important;
+            border-color: #3b82f6 !important;
+        }
+
+        .densidade-mediano .val {
+            color: #2563eb !important;
+        }
+
+        .densidade-otimo {
+            background: #dcfce7 !important;
+            border-color: #22c55e !important;
+        }
+
+        .densidade-otimo .val {
+            color: #16a34a !important;
+        }
+
+        .density-info {
+            font-size: 11px;
+            margin-top: 5px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .warning-info {
+            font-size: 11px;
+            margin-top: 5px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        /* ── Dark theme ── */
+        body.dark-theme .densidade-ruim {
+            background: #2a1010 !important;
+            border-color: #dc2626 !important;
+        }
+        body.dark-theme .densidade-mediano {
+            background: #0a202a !important;
+            border-color: #3b82f6 !important;
+        }
+        body.dark-theme .densidade-otimo {
+            background: #0a2a14 !important;
+            border-color: #22c55e !important;
+        }
+        body.dark-theme .densidade-ruim .val,
+        body.dark-theme .densidade-mediano .val,
+        body.dark-theme .densidade-otimo .val {
+            color: #ffffff !important;
+        }
+        body.dark-theme .density-info {
+            color: #ffffff;
+        }
+        body.dark-theme .balance-card {
+            background: var(--bg-card) !important;
+        }
+        body.dark-theme .balance-card-title {
+            color: #ffffff !important;
+        }
+        body.dark-theme .kpi-card small {
+            color: #ffffff !important;
+        }
+        body.dark-theme .kpi-card .meta-info {
+            color: #ffffff !important;
+        }

@@ -1,0 +1,509 @@
+/* Biomassa dashboard styles - replicate torta.css patterns */
+
+/* === Core Layout === */
+.bm-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+/* === KPI Cards === */
+.biomassa-kpi-card {
+    text-align: center;
+    padding: 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s, border-color 0.3s;
+    cursor: help;
+    position: relative;
+    overflow: hidden;
+}
+
+.biomassa-kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.biomassa-kpi-card .kpi-val {
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--text-primary);
+    margin: 8px 0;
+}
+
+.biomassa-kpi-card .kpi-lbl {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.biomassa-kpi-card .kpi-sub {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.biomassa-kpi-card .kpi-accent {
+    width: 40px;
+    height: 4px;
+    border-radius: 4px;
+    margin: 0 auto 8px auto;
+}
+
+.biomassa-kpi-card .kpi-tooltip {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1e293b;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.biomassa-kpi-card:hover .kpi-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+body.dark-theme .biomassa-kpi-card .kpi-tooltip {
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+/* === Filter Chips === */
+.bm-chip-container {
+    display: flex;
+    gap: 8px;
+    margin: 16px 0;
+    flex-wrap: wrap;
+}
+
+.bm-chip {
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.bm-chip:hover {
+    background: var(--bg-hover);
+    border-color: var(--border-hover);
+}
+
+.bm-chip.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.bm-chip.active:hover {
+    background: var(--primary-dark);
+}
+
+.bm-chip-count {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* === Ranking Tables === */
+.bm-ranking-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin: 24px 0;
+}
+
+@media (max-width: 900px) {
+    .bm-ranking-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.bm-ranking-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid var(--border);
+}
+
+.bm-ranking-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.bm-ranking-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding: 12px;
+    border-radius: 8px;
+    background: var(--bg-hover);
+    transition: all 0.2s ease;
+}
+
+.bm-ranking-item:hover {
+    background: var(--border);
+    transform: translateX(4px);
+}
+
+.bm-ranking-rank {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--bg-section);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.bm-ranking-item.rank-1 .bm-ranking-rank {
+    background: #fbbf24;
+    color: #000;
+}
+
+.bm-ranking-item.rank-2 .bm-ranking-rank {
+    background: #cbd5e1;
+    color: #000;
+}
+
+.bm-ranking-item.rank-3 .bm-ranking-rank {
+    background: #fd9c72;
+    color: #000;
+}
+
+.bm-ranking-label {
+    flex: 1;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.bm-ranking-bar-container {
+    flex: 2;
+    height: 20px;
+    background: var(--bg-section);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.bm-ranking-bar {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 10px;
+    transition: width 0.6s ease;
+}
+
+.bm-ranking-stats {
+    flex: 0 0 auto;
+    text-align: right;
+    min-width: 80px;
+}
+
+.bm-ranking-fardos {
+    font-weight: 900;
+    font-size: 16px;
+    color: #40800c;
+}
+
+.bm-ranking-toneladas {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* === Charts Container === */
+.bm-charts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 24px 0;
+}
+
+@media (max-width: 900px) {
+    .bm-charts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.bm-chart-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    position: relative;
+    min-height: 320px;
+}
+
+.bm-chart-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+}
+
+/* === Data Table === */
+.bm-table-container {
+    background: var(--bg-card);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    margin: 24px 0;
+}
+
+.bm-table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-section);
+}
+
+.bm-table-title {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.bm-table-search {
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 13px;
+    width: 220px;
+    transition: all 0.2s ease;
+}
+
+.bm-table-search:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.bm-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.bm-data-table th {
+    background: var(--bg-section);
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 700;
+    color: var(--text-primary);
+    border-bottom: 2px solid var(--border);
+}
+
+.bm-data-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-primary);
+}
+
+.bm-data-table tr:hover {
+    background: var(--bg-hover);
+}
+
+.bm-data-table tr.selected {
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.bm-table-fardos {
+    font-weight: 800;
+    color: #40800c;
+}
+
+.bm-table-toneladas {
+    font-weight: 800;
+    color: #7c3aed;
+}
+
+/* === Summary Cards Grid (Perm Cards) === */
+.bm-perm-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+    .bm-perm-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.bm-perm-card {
+    border-radius: 12px;
+    padding: 16px 18px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.22s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.bm-perm-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.bm-perm-card.proprio {
+    background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+    border-color: #86efac;
+}
+
+.bm-perm-card.terceiro {
+    background: linear-gradient(135deg, #fffbeb, #fef3c7);
+    border-color: #fcd34d;
+}
+
+.bm-perm-icon {
+    font-size: 24px;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.bm-perm-label {
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #64748b;
+    margin-bottom: 4px;
+}
+
+.bm-perm-avg {
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--text-primary);
+    margin: 4px 0;
+}
+
+.bm-perm-card.proprio .bm-perm-avg {
+    color: #15803d;
+}
+
+.bm-perm-card.terceiro .bm-perm-avg {
+    color: #b45309;
+}
+
+.bm-perm-sub {
+    font-size: 11px;
+    font-weight: 700;
+    color: #64748b;
+    margin-top: 4px;
+}
+
+.bm-perm-cta {
+    font-size: 10px;
+    font-weight: 700;
+    color: #94a3b8;
+    margin-top: 8px;
+    font-style: italic;
+}
+
+/* === Theme Support === */
+.bm-theme-dark {
+    --bg-card: #1e293b;
+    --bg-hover: #334155;
+    --bg-section: #0f172a;
+    --border: #334155;
+    --border-hover: #475569;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --primary: #3b82f6;
+    --primary-dark: #2563eb;
+    --accent: #40800c;
+    --bg-tooltip: #334155;
+    --text-tooltip: #f1f5f9;
+}
+
+.bm-theme-light {
+    --bg-card: #ffffff;
+    --bg-hover: #f8fafc;
+    --bg-section: #f1f5f9;
+    --border: #e2e8f0;
+    --border-hover: #cbd5e1;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #64748b;
+    --primary: #3b82f6;
+    --primary-dark: #2563eb;
+    --accent: #40800c;
+    --bg-tooltip: #1e293b;
+    --text-tooltip: #f1f5f9;
+}
+
+/* === Ranking & Table Row hover effects === */
+#biomassa-ranking-fundo > div:hover,
+#biomassa-ranking-veiculo > div:hover {
+    background: #eef2ff !important;
+    transform: translateX(4px);
+    transition: all 0.2s ease;
+}
+
+.biomassa-row:hover {
+    background: #eef2ff !important;
+}
+
+body.dark-theme #biomassa-ranking-fundo > div:hover,
+body.dark-theme #biomassa-ranking-veiculo > div:hover,
+body.dark-theme .biomassa-row:hover {
+    background: #263548 !important;
+}
+
+/* === Utility Classes === */
+.bm-hidden {
+    display: none !important;
+}
+
+.bm-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    color: var(--text-secondary);
+    font-size: 15px;
+}
