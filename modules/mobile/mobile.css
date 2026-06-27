@@ -470,63 +470,184 @@ body.dark-theme .mobile-nav-item.active {
     gap: 8px;
 }
 
-/* ── Gargalo FAB on mobile ── */
-@media (max-width: 1024px) {
-    #biomassa-gargalo-fab {
-        bottom: 16px !important;
-        right: 16px !important;
-    }
-    #biomassa-gargalo-fab > div {
-        width: 48px !important;
-        height: 48px !important;
-        font-size: 20px !important;
-    }
+/* ── Botões da topbar (atualizar / tema) ── */
+.mobile-top-btn {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: var(--bg-tab, #f1f5f9);
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+    flex-shrink: 0;
 }
+.mobile-top-btn:active { transform: scale(0.92); }
+.mobile-top-btn.spinning { animation: mobile-spin 0.8s linear infinite; }
+@keyframes mobile-spin { to { transform: rotate(360deg); } }
 
 /* ════════════════════════════════════════════════════════
-   BREAKPOINT ACTIVATION
+   ATIVAÇÃO MOBILE — gatilho: body.is-mobile (UA + viewport)
+   Fallback: media query <= 1024px
    ════════════════════════════════════════════════════════ */
-@media (max-width: 1024px) {
-    .mobile-topbar { display: flex; }
-    .mobile-sidebar { display: block; }
-    .mobile-content { display: block; }
-    .main-tabs { display: none !important; }
-    .balance-tabs-header, #balance-tabs-header { display: none !important; }
+body.is-mobile .mobile-topbar { display: flex; }
+body.is-mobile .mobile-sidebar { display: block; }
+
+/* Esconder cromo desktop */
+body.is-mobile .header,
+body.is-mobile .main-tabs,
+body.is-mobile #balance-tabs-header,
+body.is-mobile #auto-load-banner { display: none !important; }
+
+/* Reclamar a tela inteira + limpar a topbar fixa */
+body.is-mobile { padding: 0 !important; }
+body.is-mobile .container {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 64px 10px 28px !important;
 }
 
-/* ── Celular pequeno ── */
+/* ─── COLAPSO DE GRIDS (vence estilos inline) ─── */
+/* Qualquer grid inline 2 ou 3 colunas → 1 coluna */
+body.is-mobile #dashboardContent [style*="grid-template-columns:1fr 1fr"],
+body.is-mobile #dashboardContent [style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+}
+/* Grids de KPI auto-fit → 2 por linha (mais compacto e legível) */
+body.is-mobile #dashboardContent [style*="minmax(150px"],
+body.is-mobile #dashboardContent [style*="minmax(160px"],
+body.is-mobile #dashboardContent [style*="minmax(130px"],
+body.is-mobile #dashboardContent [style*="minmax(170px"],
+body.is-mobile #dashboardContent [style*="minmax(220px"],
+body.is-mobile #dashboardContent [style*="minmax(300px"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+}
+/* Grids definidos em classe */
+body.is-mobile .main-grid,
+body.is-mobile .coa-grid,
+body.is-mobile .perm-grid,
+body.is-mobile .perm-analysis-grid,
+body.is-mobile .subtype-grid,
+body.is-mobile .group-cards-wrapper,
+body.is-mobile .mini-dash-grid,
+body.is-mobile .bm-ranking-container,
+body.is-mobile .bm-charts-grid {
+    grid-template-columns: 1fr !important;
+}
+/* KPIs em pares */
+body.is-mobile .kpi-grid,
+body.is-mobile .disp-kpi-grid,
+body.is-mobile .perm-kpi-grid,
+body.is-mobile .perm-stage-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+}
+
+/* ─── GRÁFICOS: nunca estourar a largura ─── */
+body.is-mobile #dashboardContent canvas {
+    max-width: 100% !important;
+    max-height: 280px !important;
+    height: auto !important;
+}
+body.is-mobile #horaria-chart-wrap,
+body.is-mobile .disp-chart-wrap,
+body.is-mobile .bm-chart-card,
+body.is-mobile .coa-chart-wrap { height: auto !important; min-height: 240px; }
+
+/* ─── CARDS: padding menor, sem overflow ─── */
+body.is-mobile .card,
+body.is-mobile .balance-card,
+body.is-mobile .bm-chart-card,
+body.is-mobile .bm-ranking-card {
+    padding: 14px !important;
+    border-radius: 14px !important;
+    min-height: auto !important;
+    overflow: hidden;
+}
+
+/* ─── TABELAS: scroll horizontal por toque ─── */
+body.is-mobile .table-container,
+body.is-mobile [id$="-tabela-container"],
+body.is-mobile [id$="-tabela"],
+body.is-mobile .bm-table-container,
+body.is-mobile #torta-tabela-container {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 12px;
+}
+body.is-mobile #dashboardContent table { font-size: 12px !important; }
+body.is-mobile .bm-table-search { width: 100% !important; }
+
+/* ─── BARRAS DE SUB-ABAS / CHIPS: scroll horizontal limpo ─── */
+body.is-mobile .solinftec-tabs,
+body.is-mobile .consumo-tabs,
+body.is-mobile .balance-tabs,
+body.is-mobile #consumo-grupo-chips,
+body.is-mobile #disp-grupo-chips {
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+}
+body.is-mobile .solinftec-tabs::-webkit-scrollbar,
+body.is-mobile .consumo-tabs::-webkit-scrollbar { display: none; }
+body.is-mobile .solinftec-tab,
+body.is-mobile .consumo-tab,
+body.is-mobile .balance-tab { white-space: nowrap; flex-shrink: 0; }
+
+/* ─── FILTROS: alvos de toque grandes ─── */
+body.is-mobile .consumo-tabs-row { flex-wrap: wrap !important; gap: 8px !important; }
+body.is-mobile .consumo-chip,
+body.is-mobile .bm-chip,
+body.is-mobile .bm-periodo-chip {
+    min-height: 42px;
+    padding: 10px 16px !important;
+    font-size: 13px !important;
+}
+body.is-mobile .day-badge { min-height: 42px; }
+
+/* Filtro de período Biomassa em grade tocável */
+body.is-mobile #biomassa-filtro-modo {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+body.is-mobile #biomassa-filtro-modo > span,
+body.is-mobile #torta-dia-chips,
+body.is-mobile #biomassa-subfiltro { grid-column: 1 / -1; }
+body.is-mobile #biomassa-filtro-modo .bm-periodo-chip {
+    width: 100%;
+    justify-content: center;
+}
+
+/* ─── GARGALO FAB ─── */
+body.is-mobile #biomassa-gargalo-fab { bottom: 16px !important; right: 16px !important; }
+body.is-mobile #biomassa-gargalo-fab > div {
+    width: 52px !important; height: 52px !important; font-size: 22px !important;
+}
+
+/* ─── Celular pequeno ─── */
 @media (max-width: 480px) {
-    .mobile-topbar { height: 50px; padding: 0 12px; }
-    .mobile-topbar h1 { font-size: 15px; }
-    .mobile-content { padding-top: 50px; }
-    .mobile-card { padding: 12px; border-radius: 12px; margin-bottom: 10px; }
-    .mobile-kpi-grid { gap: 8px; }
-    .mobile-kpi-val { font-size: 20px; }
-    .mobile-kpi-card { padding: 10px; }
-    .mobile-chart-wrap { min-height: 180px; }
-    .mobile-sidebar { width: 260px; left: -260px; }
-    .mobile-nav-item { padding: 12px 16px; font-size: 14px; }
+    body.is-mobile .mobile-topbar { height: 52px; padding: 0 12px; }
+    body.is-mobile .mobile-topbar h1 { font-size: 16px; }
+    body.is-mobile .container { padding-top: 62px !important; padding-left: 8px !important; padding-right: 8px !important; }
+    body.is-mobile .card,
+    body.is-mobile .balance-card { padding: 12px !important; }
+    body.is-mobile #dashboardContent [style*="minmax(130px"],
+    body.is-mobile #dashboardContent [style*="minmax(150px"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
 }
 
-/* ── Celular grande ── */
-@media (min-width: 481px) and (max-width: 767px) {
-    .mobile-kpi-grid { grid-template-columns: repeat(2, 1fr); }
-    .mobile-chart-wrap { min-height: 200px; }
-}
-
-/* ── Tablet ── */
-@media (min-width: 768px) and (max-width: 1024px) {
-    .mobile-kpi-grid { grid-template-columns: repeat(3, 1fr); }
-    .mobile-chart-wrap { min-height: 260px; }
-    .mobile-card { padding: 20px; }
-}
-
-/* ── Desktop: esconder elementos mobile ── */
+/* ─── Desktop: garantir elementos mobile ocultos ─── */
 @media (min-width: 1025px) {
-    .mobile-topbar { display: none !important; }
-    .mobile-sidebar { display: none !important; }
-    .mobile-overlay { display: none !important; }
-    .mobile-content { display: none !important; }
+    body:not(.is-mobile) .mobile-topbar,
+    body:not(.is-mobile) .mobile-sidebar,
+    body:not(.is-mobile) .mobile-overlay { display: none !important; }
 }
 
 /* ── Prevenir rolagem do body com sidebar aberta ── */

@@ -54,10 +54,35 @@ var MobileModule = (function() {
         topbar.innerHTML =
             '<button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu">☰</button>' +
             '<h1 id="mobile-topbar-title">AgroSync</h1>' +
-            '<div class="mobile-top-right"></div>';
+            '<div class="mobile-top-right">' +
+                '<button class="mobile-top-btn" id="mobile-refresh-btn" aria-label="Atualizar">🔄</button>' +
+                '<button class="mobile-top-btn" id="mobile-theme-btn" aria-label="Tema">🌙</button>' +
+            '</div>';
         document.body.appendChild(topbar);
 
         document.getElementById('mobile-menu-btn').addEventListener('click', toggleSidebar);
+
+        var refreshBtn = document.getElementById('mobile-refresh-btn');
+        if (refreshBtn) {
+            refreshBtn.addEventListener('click', function() {
+                this.classList.add('spinning');
+                if (typeof agrosyncOnlineLoad === 'function') {
+                    try { agrosyncOnlineLoad(); } catch(e) {}
+                }
+                var self = this;
+                setTimeout(function() { self.classList.remove('spinning'); }, 1500);
+            });
+        }
+
+        var themeBtn = document.getElementById('mobile-theme-btn');
+        if (themeBtn) {
+            themeBtn.addEventListener('click', function() {
+                var input = document.getElementById('input');
+                if (input) { input.click(); }
+                else { document.body.classList.toggle('dark-theme'); }
+                this.textContent = document.body.classList.contains('dark-theme') ? '☀️' : '🌙';
+            });
+        }
     }
 
     // ── Sidebar ──
@@ -108,52 +133,20 @@ var MobileModule = (function() {
     // ── Toggle between mobile and desktop layout ──
     function applyLayout() {
         var w = window.innerWidth;
-        // Forçar mobile se detectar userAgent de celular/tablet mesmo em telas maiores (ou vice-versa)
         var isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         var shouldBeMobile = w <= (cfg.breakpoints ? cfg.breakpoints.tablet : 1024) || isMobileUA;
 
-        if (shouldBeMobile === isMobile) {
-            // Se já for mobile, garante que elementos mobile estão visíveis (correção de glitch)
-            if (isMobile && !document.getElementById('mobile-topbar').offsetParent) {
-                 isMobile = !shouldBeMobile; // force re-apply
-            } else {
-                return;
-            }
-        }
+        if (shouldBeMobile === isMobile) return;
         isMobile = shouldBeMobile;
 
-        var topbar = document.getElementById('mobile-topbar');
-        var sidebar = document.getElementById('mobile-sidebar');
-        var overlay = document.getElementById('mobile-overlay');
-        var desktopTabs = getDesktopTabBar();
+        // A classe no body controla todos os overrides de CSS (padding, grids, header)
+        document.body.classList.toggle('is-mobile', isMobile);
 
         if (isMobile) {
-            // Mobile mode
-            if (topbar) topbar.style.display = '';
-            if (sidebar) sidebar.style.display = '';
-            if (overlay) overlay.style.display = '';
-            if (desktopTabs) desktopTabs.style.display = 'none';
-
-            // Hide balance-tabs-header
-            var balTabs = document.getElementById('balance-tabs-header');
-            if (balTabs) balTabs.style.display = 'none';
-
             closeSidebar();
             highlightNav(currentTab);
             updateTopbarTitle(currentTab);
         } else {
-            // Desktop mode
-            if (topbar) topbar.style.display = 'none';
-            if (sidebar) sidebar.style.display = 'none';
-            if (overlay) overlay.style.display = 'none';
-            if (desktopTabs) desktopTabs.removeAttribute('style');
-
-            // Restore balance tabs visibility based on active tab
-            var balTabs = document.getElementById('balance-tabs-header');
-            if (balTabs) {
-                balTabs.style.display = currentTab === 'balance' ? 'flex' : 'none';
-            }
-
             closeSidebar();
         }
     }
@@ -195,12 +188,13 @@ var MobileModule = (function() {
 
         buildMobileDOM();
 
-        // Apply initial layout
-        isMobile = window.innerWidth <= (cfg.breakpoints ? cfg.breakpoints.tablet : 1024);
+        // Força aplicação inicial (isMobile começa null/false → applyLayout aplica a classe)
+        isMobile = null;
         applyLayout();
 
-        // Listen for resize
+        // Listen for resize + mudança de orientação
         window.addEventListener('resize', onResize);
+        window.addEventListener('orientationchange', onResize);
 
         // Expose public API
         window.mobileModuleOnTabChange = onTabChange;

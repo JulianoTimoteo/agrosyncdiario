@@ -326,7 +326,13 @@
 
         function switchMainTab(tab) {
             document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
+            var _ev = (typeof event !== 'undefined') ? event : null;
+            if (_ev && _ev.target && _ev.target.classList && _ev.target.classList.contains('main-tab')) {
+                _ev.target.classList.add('active');
+            } else {
+                var _tabBtn = document.querySelector('.main-tab[onclick*="\'' + tab + '\'"]');
+                if (_tabBtn) _tabBtn.classList.add('active');
+            }
             ['main-solinftec', 'main-balance', 'main-densidade', 'main-controle', 'main-consumo', 'main-disponibilidade', 'main-torta', 'main-biomassa'].forEach(id => {
                 const el = document.getElementById(id); if (el) el.classList.remove('active');
             });
